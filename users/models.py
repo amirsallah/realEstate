@@ -9,6 +9,6 @@ class Landlord(models.Model):
     email = models.EmailField(_('email'), unique=True)
 
     class Meta(object):
-        db_table = _('landlord')
+        db_table = 'landlord'
         verbose_name = _('user')
         verbose_name_plural = _('users')

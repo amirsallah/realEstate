@@ -10,17 +10,33 @@ class Estate(models.Model):
     price = models.DecimalField(verbose_name=_('price'), max_digits=10, decimal_places=2)
     address = models.TextField(verbose_name=_('address'), max_length=200)
     city = models.CharField(_('city'), max_length=40)
-    state = models.CharField(_('state'), max_length=40, blank=True)
-    photo_main = models.ImageField(_('photo_main'), upload_to='photos/%y/%m/%d/', blank=True)
-    photo_2 = models.ImageField(_('photo_2'), upload_to='photos/%y/%m/%d/', blank=True)
-    photo_3 = models.ImageField(_('photo_3'), upload_to='photos/%y/%m/%d/', blank=True)
     landlord = models.ForeignKey(Landlord, verbose_name=_('landlord'), on_delete=models.CASCADE,
                                  related_name='landlord')
+    is_active = models.BooleanField(verbose_name=_('active'), default=True)
+    created_time = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
+    updated_time = models.DateTimeField(verbose_name=_('updated at'), auto_now=True)
 
     class Meta:
-        db_table = _('estate')
+        db_table = 'estate'
         verbose_name = _('estate')
         verbose_name_plural = _('estates')
+
+    def __str__(self):
+        return self.title
+
+
+class File(models.Model):
+    Estate = models.ForeignKey(Estate, verbose_name=_('Estate'), related_name='files', on_delete=models.CASCADE)
+    title = models.CharField(verbose_name=_('title'), max_length=50)
+    file = models.FileField(verbose_name=_('file'), upload_to='files/%Y/%m/%d/')
+    order = models.IntegerField(verbose_name=_('order'), default=0)
+    is_active = models.BooleanField(verbose_name=_('active'), default=True)
+    created_time = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
+
+    class Meta:
+        db_table = 'files'
+        verbose_name = _('file')
+        verbose_name_plural = _('files')
 
     def __str__(self):
         return self.title
