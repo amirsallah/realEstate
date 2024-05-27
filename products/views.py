@@ -1,6 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters
 
+from .filters import EstateFilter
 from .models import Estate
 from .serializer import EstateSerializer
 
@@ -11,6 +12,7 @@ class EstateListView(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['title', 'city', 'meterage', 'price']
     search_fields = ['title']
+    filterset_class = EstateFilter
 
 
 class EstateDetailView(generics.RetrieveUpdateDestroyAPIView):
