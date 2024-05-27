@@ -6,6 +6,4 @@ from .models import Landlord
 class LandlordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Landlord
-        fields = ('pk', 'phone_number', 'email')
-
-
+        fields = ('pk', 'phone_number', 'email', 'name')
