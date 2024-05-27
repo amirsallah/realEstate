@@ -12,6 +12,9 @@ class Estate(models.Model):
     city = models.CharField(_('city'), max_length=40)
     landlord = models.ForeignKey(Landlord, verbose_name=_('landlord'), on_delete=models.CASCADE,
                                  related_name='landlord')
+    meterage = models.DecimalField(verbose_name=_('meterage'), max_digits=20, decimal_places=2)
+    parking = models.BooleanField(verbose_name=_('parking'))
+    storeroom = models.BooleanField(verbose_name=_('storeroom'))
     is_active = models.BooleanField(verbose_name=_('active'), default=True)
     created_time = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
     updated_time = models.DateTimeField(verbose_name=_('updated at'), auto_now=True)
