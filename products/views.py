@@ -1,5 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework import generics, filters
+from rest_framework.permissions import IsAuthenticated
 
 from .filters import EstateFilter
 from .models import Estate
@@ -7,6 +9,7 @@ from .serializer import EstateSerializer
 
 
 class EstateListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Estate.objects.all()
     serializer_class = EstateSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
@@ -16,8 +19,12 @@ class EstateListView(generics.ListCreateAPIView):
 
 
 class EstateDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Estate.objects.all()
     serializer_class = EstateSerializer
+
+
+# implemented by APIView
 
 # class EstateListView(APIView):
 #     queryset = Estate.objects.all()
